@@ -1,0 +1,10 @@
+# ohnotes
+
+A simple notes indexer.
+
+
+- write notes in your own way
+
+- index your notes
+
+- provide a plugin to search your notes
