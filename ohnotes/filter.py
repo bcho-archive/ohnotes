@@ -1,5 +1,12 @@
 #coding: utf-8
 
+'''
+    filter
+    ~~~~~~
+
+    Split the post into a keywords set.
+'''
+
 from jieba import cut
 
 from ohnotes.config import data_dir
@@ -10,6 +17,7 @@ ignorewords = read_list('ignorewords.list', data_dir) or ['\n']
 stopwords = read_list('stopwords.list', data_dir)
 
 
+# TODO use built-in `filter` instead?
 def filter(raw_buffer):
     #: clean the raw text
     for w in ignorewords:

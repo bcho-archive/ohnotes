@@ -22,8 +22,13 @@ class Post(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(Unicode(240), nullable=False)
-    words = relationship('Words', secondary=posts_and_words,
+    path = Column(Unicode(500), nullable=False, unique=True)
+    words = relationship('Word', secondary=posts_and_words,
                          backref=backref('posts'))
+
+    def __init__(self, postname, path):
+        self.name = postname
+        self.path = path
 
     def __repr__(self):
         return '<Post: %s(%d) with %d word(s)>' % (self.name, self.id,
@@ -35,6 +40,9 @@ class Word(Base):
 
     id = Column(Integer, primary_key=True)
     word = Column(Unicode(240), nullable=False)
+
+    def __init__(self, word):
+        self.word = word
 
     def __repr__(self):
         return '<Word: %s(%d)>' % (self.word, self.id)
