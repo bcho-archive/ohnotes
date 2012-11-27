@@ -5,3 +5,8 @@ lib/
 
 # local data
 data/
+
+# junk
+*pyc
+*~
+*swp
