@@ -74,3 +74,34 @@ def query(word):
         return list(set(ret))
     else:
         return None
+
+
+def load_local_post(path):
+    '''Load a local post.
+    
+    :param path: The **absolute** path of the file.
+    '''
+    if not os.path.isfile(path):
+        return None
+    return open(path).read()
+
+
+# TODO load database post
+def load_db_post(post):
+    '''Load a post from db.
+    
+    :param post: A `Post` instance.
+    '''
+    return None
+
+
+def load_post(post_id):
+    '''Load a post.
+
+    :param post_id: The id of the post.
+    '''
+    post = _get_one(Post, (Post.id == post_id))
+    # TODO load database post
+    if post and post.path:
+        return load_local_post(post.path)
+    return None
