@@ -5,6 +5,8 @@ from sqlalchemy import Table, ForeignKey
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
 
+from .utils import Dict
+
 
 Base = declarative_base()
 
@@ -17,8 +19,9 @@ posts_and_words = Table(
 )
 
 
-class Post(Base):
+class Post(Base, Dict):
     __tablename__ = 'posts'
+    __keys__ = ['id', 'name', 'path']
 
     id = Column(Integer, primary_key=True)
     name = Column(String(240), nullable=False)
@@ -35,8 +38,9 @@ class Post(Base):
                 self.id, len(self.words) or 0)
 
 
-class Word(Base):
+class Word(Base, Dict):
     __tablename__ = 'words'
+    __keys__ = ['id', 'word']
 
     id = Column(Integer, primary_key=True)
     word = Column(String(240), nullable=False)
