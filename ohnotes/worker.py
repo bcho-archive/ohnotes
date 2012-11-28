@@ -13,17 +13,22 @@ from ohnotes.db import db
 from ohnotes.models import Post, Word
 
 
-def _get(model, condition):
+def _get_one(model, condition):
     r = db.query(model).filter(condition)
     return r.one() if r.count() else None
 
 
+def _get(model, condition=None):
+    r = db.query(model).filter(condition)
+    return r.all() if r.count() else None
+
+
 def get_word(word):
-    return _get(Word, (Word.word == word))
+    return _get_one(Word, (Word.word == word))
 
 
 def get_post(postpath):
-    return _get(Post, (Post.path == postpath))
+    return _get_one(Post, (Post.path == postpath))
 
 
 def parse_post(fname, path):
@@ -57,3 +62,15 @@ def parse_posts(path):
             fname = os.path.splitext(f)[0].decode('utf-8')
             fullpath = os.path.join(dirpath, f).decode('utf-8')
             parse_post(fname, fullpath)
+
+
+def query(word):
+    '''Search some posts basic on a word.'''
+    if not isinstance(word, unicode):
+        word = word.decode('utf-8')
+    words = _get(Word, (Word.word.like('%' + word + '%')))
+    if words:
+        ret = [p for w in words for p in w.posts]
+        return list(set(ret))
+    else:
+        return None

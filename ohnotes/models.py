@@ -1,6 +1,6 @@
 #coding: utf-8
 
-from sqlalchemy import Column, Integer, Unicode
+from sqlalchemy import Column, Integer, String
 from sqlalchemy import Table, ForeignKey
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
@@ -21,8 +21,8 @@ class Post(Base):
     __tablename__ = 'posts'
 
     id = Column(Integer, primary_key=True)
-    name = Column(Unicode(240), nullable=False)
-    path = Column(Unicode(500), nullable=False, unique=True)
+    name = Column(String(240), nullable=False)
+    path = Column(String(500), nullable=False, unique=True)
     words = relationship('Word', secondary=posts_and_words,
                          backref=backref('posts'))
 
@@ -31,15 +31,15 @@ class Post(Base):
         self.path = path
 
     def __repr__(self):
-        return '<Post: %s(%d) with %d word(s)>' % (self.name, self.id,
-                                                   len(self.words) or 0)
+        return '<Post: %s(%d) with %d word(s)>' % (self.name.encode('utf-8'),
+                self.id, len(self.words) or 0)
 
 
 class Word(Base):
     __tablename__ = 'words'
 
     id = Column(Integer, primary_key=True)
-    word = Column(Unicode(240), nullable=False)
+    word = Column(String(240), nullable=False)
 
     def __init__(self, word):
         self.word = word
