@@ -4,6 +4,8 @@ import os
 import json
 from json import JSONEncoder
 
+from config import project_codename
+
 
 def read_list(fname, parent_path):
     '''read a list from a file'''
@@ -41,3 +43,18 @@ class Dict(JSONEncoder):
         if isinstance(o, Dict):
             return o.dict
         return super(JSONEncoder, self).default(o)
+
+
+def import_object(name, arg=None):
+    if '.' not in name:
+        return __import__(name)
+    parts = name.split('.')
+    obj = __import__('.'.join(parts[:-1]), None, None, [parts[-1]], 0)
+    return getattr(obj, parts[-1], arg)
+
+
+def register_blueprint(app, blueprint):
+    url_prefix = '/%s' % blueprint
+    views = import_object('%s.%s.views' % (project_codename, blueprint))
+    app.register_blueprint(views.app, url_prefix=url_prefix)
+    return app

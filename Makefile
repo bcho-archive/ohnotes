@@ -1,5 +1,9 @@
 .PHONY: clean-pyc clean
 
+run_server:
+	python run.py
+
+
 build_db:
 	python make_db.py
 
