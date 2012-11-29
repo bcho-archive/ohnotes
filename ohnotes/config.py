@@ -18,4 +18,4 @@ database_path = os.path.join(data_dir, db_file_name)
 database_url = 'sqlite:///%s' % (database_path)
 
 #: enabled blueprints
-blueprints = ['query']
+blueprints = ['query', 'posts']
