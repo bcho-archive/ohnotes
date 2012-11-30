@@ -13,8 +13,9 @@ from ohnotes.config import data_dir
 from .utils import read_list
 
 
-ignorewords = read_list('ignorewords.list', data_dir) or ['\n']
-stopwords = read_list('stopwords.list', data_dir)
+builtin_ignore = '\n \t'.split(' ')
+ignorewords = set(read_list('ignorewords.list', data_dir) + builtin_ignore)
+stopwords = set(read_list('stopwords.list', data_dir))
 
 
 # TODO use built-in `filter` instead?
@@ -26,7 +27,9 @@ def filter(raw_buffer):
     words = cut(raw_buffer)
     #: remove useless and repeated words
     ret = []
+    ignored = ignorewords.union(stopwords)
     for w in words:
-        if w.lower() not in ret + ignorewords + stopwords:
-            ret.append(w.lower())
+        w = w.strip().lower()
+        if w not in ret and w not in ignored:
+            ret.append(w)
     return ret

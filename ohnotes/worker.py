@@ -40,7 +40,7 @@ def parse_post(fname, path):
     '''
     from ohnotes.filter import filter
 
-    raw_buffer = open(path, 'r').read()
+    raw_buffer = load_local_post(path)
     words = filter(raw_buffer)
     
     p = get_post(path) or Post(fname, path)
@@ -83,7 +83,7 @@ def load_local_post(path):
     '''
     if not os.path.isfile(path):
         return None
-    return open(path).read()
+    return open(path).read().decode('utf-8')
 
 
 # TODO load database post
