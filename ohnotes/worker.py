@@ -13,7 +13,7 @@ from ohnotes.db import db
 from ohnotes.models import Post, Word
 
 
-def _get_one(model, condition):
+def _get_one(model):
     r = db.query(model).filter(condition)
     return r.one() if r.count() else None
 
@@ -105,3 +105,8 @@ def load_post(post_id):
     if post and post.path:
         return load_local_post(post.path)
     return None
+
+
+def load_posts():
+    '''Load all posts.'''
+    return _get(Post)

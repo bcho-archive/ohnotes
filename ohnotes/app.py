@@ -19,3 +19,9 @@ for blueprint in blueprints:
 @app.errorhandler(404)
 def not_found(error):
     return jsonify(message='Not found.'), 404
+
+
+@app.after_request
+def after_request(resp):
+    resp.headers.add('Access-Control-Allow-Origin', '*')
+    return resp
