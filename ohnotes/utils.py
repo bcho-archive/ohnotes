@@ -58,3 +58,8 @@ def register_blueprint(app, blueprint):
     views = import_object('%s.%s.views' % (project_codename, blueprint))
     app.register_blueprint(views.app, url_prefix=url_prefix)
     return app
+
+
+def register_logger(logger, level, format):
+    logger.setLevel(level)
+    logger.setFormatter(format)

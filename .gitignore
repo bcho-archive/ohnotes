@@ -11,3 +11,4 @@ data/
 *~
 *swp
 test.py
+*.log

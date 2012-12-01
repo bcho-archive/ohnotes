@@ -2,8 +2,9 @@
 
 from flask import Flask, jsonify
 
-from utils import register_blueprint
-from config import blueprints
+from ohnotes.base import logger
+from .utils import register_blueprint, register_logger
+from ohnotes.config import blueprints
 
 
 #: init app
@@ -13,6 +14,7 @@ app.config.from_pyfile('config.py')
 
 #: register blueprints
 for blueprint in blueprints:
+    logger.info('registering %s' % (blueprint))
     register_blueprint(app, blueprint)
 
 

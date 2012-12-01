@@ -9,6 +9,7 @@
 
 import os
 
+from ohnotes.base import logger
 from ohnotes.db import db
 from ohnotes.models import Note, Word
 
@@ -61,6 +62,7 @@ def parse_notes(path):
         for f in files:
             fname = os.path.splitext(f)[0].decode('utf-8')
             fullpath = os.path.join(dirpath, f).decode('utf-8')
+            logger.debug('parsing %s(%s)' % (fname, fullpath))
             parse_note(fname, fullpath)
 
 
