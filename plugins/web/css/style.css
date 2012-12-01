@@ -92,11 +92,15 @@ body {
 
 .query {
   display: inline-block;
+  line-height: 1.75;
+  color: #333;
+  font-family: Monaco, monospace;
+  padding: 2px;
   border: 1px solid #eee;
 }
 
 .query:focus {
-  border-color: rgba(82, 168, 236, .8);
+  border-color: rgba(33, 33, 33, .2);
   outline: 0;
 }
 
