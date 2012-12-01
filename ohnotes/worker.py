@@ -10,10 +10,10 @@
 import os
 
 from ohnotes.db import db
-from ohnotes.models import Post, Word
+from ohnotes.models import Note, Word
 
 
-def _get_one(model):
+def _get_one(model, condition):
     r = db.query(model).filter(condition)
     return r.one() if r.count() else None
 
@@ -27,23 +27,23 @@ def get_word(word):
     return _get_one(Word, (Word.word == word))
 
 
-def get_post(postpath):
-    return _get_one(Post, (Post.path == postpath))
+def get_note(notepath):
+    return _get_one(Note, (Note.path == notepath))
 
 
-def parse_post(fname, path):
-    '''Parse a post and store its words.
+def parse_note(fname, path):
+    '''Parse a note and store its words.
     
-    :param fname: The name of the post.
+    :param fname: The name of the note.
 
-    :param path: The absolute path of the post.
+    :param path: The absolute path of the note.
     '''
     from ohnotes.filter import filter
 
-    raw_buffer = load_local_post(path)
+    raw_buffer = load_local_note(path)
     words = filter(raw_buffer)
     
-    p = get_post(path) or Post(fname, path)
+    p = get_note(path) or Note(fname, path)
     for w in words:
         w = get_word(w) or Word(w)
         db.add(w)
@@ -52,32 +52,32 @@ def parse_post(fname, path):
     db.commit()
 
 
-def parse_posts(path):
-    '''Parse all posts under the gave path.
+def parse_notes(path):
+    '''Parse all notes under the gave path.
     
-    :param path: The absolute parent path of the posts.
+    :param path: The absolute parent path of the notes.
     '''
     for dirpath, dirs, files in os.walk(path):
         for f in files:
             fname = os.path.splitext(f)[0].decode('utf-8')
             fullpath = os.path.join(dirpath, f).decode('utf-8')
-            parse_post(fname, fullpath)
+            parse_note(fname, fullpath)
 
 
 def query(word):
-    '''Search some posts basic on a word.'''
+    '''Search some notes basic on a word.'''
     if not isinstance(word, unicode):
         word = word.decode('utf-8')
     words = _get(Word, (Word.word.like('%' + word + '%')))
     if words:
-        ret = [p for w in words for p in w.posts]
+        ret = [p for w in words for p in w.notes]
         return list(set(ret))
     else:
         return None
 
 
-def load_local_post(path):
-    '''Load a local post.
+def load_local_note(path):
+    '''Load a local note.
     
     :param path: The **absolute** path of the file.
     '''
@@ -86,27 +86,27 @@ def load_local_post(path):
     return open(path).read().decode('utf-8')
 
 
-# TODO load database post
-def load_db_post(post):
-    '''Load a post from db.
+# TODO load database note
+def load_db_note(note):
+    '''Load a note from db.
     
-    :param post: A `Post` instance.
+    :param note: A `Note` instance.
     '''
     return None
 
 
-def load_post(post_id):
-    '''Load a post.
+def load_note(note_id):
+    '''Load a note.
 
-    :param post_id: The id of the post.
+    :param note_id: The id of the note.
     '''
-    post = _get_one(Post, (Post.id == post_id))
-    # TODO load database post
-    if post and post.path:
-        return load_local_post(post.path)
+    note = _get_one(Note, (Note.id == note_id))
+    # TODO load database note
+    if note and note.path:
+        return load_local_note(note.path)
     return None
 
 
-def load_posts():
-    '''Load all posts.'''
-    return _get(Post)
+def load_notes():
+    '''Load all notes.'''
+    return _get(Note)

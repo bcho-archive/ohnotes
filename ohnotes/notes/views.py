@@ -7,17 +7,17 @@ from ohnotes import worker
 app = Blueprint('notes', __name__)
 
 
-@app.route('/<int:post_id>', methods=['GET'])
-def load_post(post_id):
-    content = worker.load_post(post_id)
+@app.route('/<int:note_id>', methods=['GET'])
+def load_note(note_id):
+    content = worker.load_note(note_id)
     if content:
-        return jsonify(id=post_id, content=content)
+        return jsonify(id=note_id, content=content)
     abort(404)
 
 
 @app.route('', methods=['GET'])
-def load_posts():
-    posts = [{'id': i.id, 'name': i.name} for i in worker.load_posts()]
-    if posts:
-        return jsonify(posts=posts)
+def load_notes():
+    notes = worker.load_notes()
+    if notes:
+        return jsonify(notes=[{'name': i.name, 'id': i.id} for i in notes])
     abort(404)
