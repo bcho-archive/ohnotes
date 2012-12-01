@@ -1,0 +1,121 @@
+body {
+  font-family: Monaco, monospace;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+  height: 0px;
+  display: block;
+  background-color: transparent;
+}
+::-webkit-scrollbar-track-piece {
+  background: #fff;
+}
+::-webkit-scrollbar-thumb {
+  background: #fff;
+}
+::-webkit-scrollbar-thumb:vertical {
+  border-right: 4px #6f6f6f solid;
+  height: 50px;
+}
+::-webkit-scrollbar-thumb:horizontal {
+  border-bottom: 4px #6f6f6f solid;
+  width: 50px;
+}
+
+.container {
+  width: 1200px;
+  margin: 0 auto;
+  padding: 5px;
+}
+
+.current {
+  font-size: 1.1em;
+}
+
+.highlight {
+  color: #333 !important;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.golden {
+  margin-left: 2.5%;
+  float: left;
+  max-height: 520px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.files-info,
+.query-box {
+  padding-left: 15px;
+  padding-bottom: 10px;
+}
+
+.files-list {
+  padding: 25px 2px 5px 15px;
+  list-style: none;
+  line-height: 1.75;
+  overflow: auto;
+  height: 175px;
+  width: 85%;
+}
+
+.files-list  a {
+  color: #eee;
+  text-decoration: none;
+}
+
+.files-list a:hover {
+  text-decoration: underline;
+  color: #333;
+}
+
+.files-list::-webkit-scrollbar-track-piece,
+.files-list::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+.files-info {
+  font-size: .75em;
+  padding-left: 20px;
+  color: #666;
+}
+
+.query {
+  display: inline-block;
+  border: 1px solid #eee;
+}
+
+.query:focus {
+  border-color: rgba(82, 168, 236, .8);
+  outline: 0;
+}
+
+.buf {
+  line-height: 1.75;
+  font-size: 15px;
+  font-family: Monaco, monospace;
+  color: #000;
+}
+
+#main {
+  margin-top: 75px;
+}
+
+#notes-list {
+  width: 32%;
+  display: block;
+}
+
+#notes-content {
+  width: 61.8%;
+}
