@@ -13,6 +13,7 @@ parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 data_dir = os.path.join(parent_dir, 'data')
 db_file_name = '%s%s.sqlite' % (project_codename,
                                 '_dev' if DEBUG else '')
+notes_path = 'your_path'
 
 #: logging settings
 log_name = project_codename
