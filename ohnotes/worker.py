@@ -4,7 +4,7 @@
     worker
     ~~~~~~
 
-    Do every dirty job.
+    Do every dirty jobs.
 '''
 
 import os
