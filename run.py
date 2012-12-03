@@ -1,5 +1,7 @@
+#!/usr/bin/env python
 #coding: utf-8
 
-from ohnotes.app import app
+from ohnotes import cli
 
-app.run()
+if __name__ == '__main__':
+    cli._main()

@@ -1,7 +1,7 @@
 Flask==0.9
-Flask-SQLAlchemy==0.16
 Jinja2==2.6
 SQLAlchemy==0.7.9
 Werkzeug==0.8.3
+docopt==0.5.0
 jieba==0.21
 wsgiref==0.1.2
